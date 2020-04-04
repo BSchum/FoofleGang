@@ -21,6 +21,7 @@ namespace FoofleGang.Enemies
         private void Awake()
         {
             _motor = GetComponent<IMotor>();
+            this._animator = gameObject.GetComponentInChildren<Animator>();
         }
 
         public void Update()
@@ -38,6 +39,20 @@ namespace FoofleGang.Enemies
             _motor.Look(_target);
         }
         #endregion
+
+        public void SetSpeed(float speed)
+        {
+            this._speed = speed;
+        }
+
+        public void SetTarget(Transform target)
+        {
+            this._target = target;
+        }
+        public void SetRange(float range)
+        {
+            this._range = range;
+        }
     }
 }
 

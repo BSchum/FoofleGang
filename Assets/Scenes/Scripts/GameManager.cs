@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FoofleGang.Enemies;
 
 public class GameManager : MonoBehaviour
 {
     private enum Difficulty { Medium, Hard, Godlike};
-    [SerializeField] private Difficulty GameDifficulty;
+    [SerializeField] private Difficulty GameDifficulty = Difficulty.Medium;
     public GameObject[] spawnMob;
     private int spawnMobArraySize;
     private float spawnDelta = 0.0f;
     private float spawnPointX = 0.0f;
     private float spawnPointZ = 0.0f;
+    private float maxSpawnRange = 50.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +32,8 @@ public class GameManager : MonoBehaviour
 
     private void SpawnMob()
     {
-        spawnPointX = Random.Range(-60.0f, 60.0f);
-        spawnPointZ = Random.Range(-60.0f, 60.0f);
+        spawnPointX = Random.Range(-maxSpawnRange, maxSpawnRange);
+        spawnPointZ = Random.Range(-maxSpawnRange, maxSpawnRange);
         spawnPointX = CheckMinimalDistanceSpawn(spawnPointX);
         spawnPointZ = CheckMinimalDistanceSpawn(spawnPointZ);
 
@@ -40,6 +42,10 @@ public class GameManager : MonoBehaviour
             int randomInt = Random.Range(0, spawnMobArraySize);
             Vector3 spawnPosition = new Vector3(spawnPointX, 0, spawnPointZ);
             GameObject enemy = spawnMob[randomInt];
+            enemy.GetComponent<ZombieController>().SetSpeed(0.8f);
+            enemy.GetComponent<ZombieController>().SetTarget(Camera.main.transform);
+            enemy.GetComponent<ZombieController>().SetRange(2.0f);
+
 
             Instantiate(enemy, spawnPosition, Quaternion.identity);
         }
@@ -49,10 +55,7 @@ public class GameManager : MonoBehaviour
     {
         if (spawnValue <= 5f && spawnValue >= 5f)
         {
-            if (spawnValue < 0)
-                spawnValue -= 2;
-            else
-                spawnValue += 2;
+            spawnValue = spawnValue < 0 ? spawnValue -= 2 : spawnValue += 2;
             return CheckMinimalDistanceSpawn(spawnValue);
         }
         else
@@ -80,13 +83,13 @@ public class GameManager : MonoBehaviour
         switch (difficulty)
         {
             case Difficulty.Medium :
-                return 5.0f;
+                return 4.3f;
             case Difficulty.Hard :
-                return 3.7f;
+                return 3.0f;
             case Difficulty.Godlike:
-                return 2.5f;
+                return 1.8f;
             default:
-                return 5.0f;
+                return GetGameDifficulty(Difficulty.Medium);
         }
     }
 }
