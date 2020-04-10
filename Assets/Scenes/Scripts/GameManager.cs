@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private float spawnPointX = 0.0f;
     private float spawnPointZ = 0.0f;
     private float maxSpawnRange = 50.0f;
-
+    [SerializeField] private GameObject target;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
             Vector3 spawnPosition = new Vector3(spawnPointX, 0, spawnPointZ);
             GameObject enemy = spawnMob[randomInt];
             enemy.GetComponent<ZombieController>().SetSpeed(0.8f);
-            enemy.GetComponent<ZombieController>().SetTarget(Camera.main.transform);
+            enemy.GetComponent<ZombieController>().SetTarget(target.transform);
             enemy.GetComponent<ZombieController>().SetRange(2.0f);
 
 
