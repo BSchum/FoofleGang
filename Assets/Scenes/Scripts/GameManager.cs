@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FoofleGang.Enemies;
+using UnityEngine.XR.ARFoundation;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     private float spawnPointX = 0.0f;
     private float spawnPointZ = 0.0f;
     private float maxSpawnRange = 50.0f;
+    private ARPlane plane = GlobalVariable.Instance.plane;
 
     // Start is called before the first frame update
     void Start()
@@ -42,9 +44,10 @@ public class GameManager : MonoBehaviour
             int randomInt = Random.Range(0, spawnMobArraySize);
             Vector3 spawnPosition = new Vector3(spawnPointX, 0, spawnPointZ);
             GameObject enemy = spawnMob[randomInt];
-            enemy.GetComponent<ZombieController>().SetSpeed(0.8f);
+            enemy.GetComponent<ZombieController>().SetSpeed(2.0f);
             enemy.GetComponent<ZombieController>().SetTarget(Camera.main.transform);
             enemy.GetComponent<ZombieController>().SetRange(2.0f);
+            enemy.transform.localScale.Set(enemy.transform.localScale.x, enemy.transform.localScale.y + Random.Range(-0.4f, 0.3f), enemy.transform.localScale.z);
 
 
             Instantiate(enemy, spawnPosition, Quaternion.identity);
