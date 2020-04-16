@@ -5,6 +5,10 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public float damage;
+    [Tooltip("Fire Rate (in seconds)")]
+    public float fireRate;
+    public int magSize;
+
     // Start is called before the first frame update
     void Start()
     {

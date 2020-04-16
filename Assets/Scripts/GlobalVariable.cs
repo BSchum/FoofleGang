@@ -5,7 +5,7 @@ using UnityEngine.XR.ARFoundation;
 
 public class GlobalVariable
 {
-    public ARPlane plane;
+    public float planeY;
 
 
     #region Init / Gestion du singleton

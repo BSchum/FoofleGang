@@ -8,12 +8,21 @@ public class SceneManager : MonoBehaviour
 {
     public void StartGameScene()
     {
-        GlobalVariable.Instance.plane = ARSession.FindObjectOfType<ARPlane>();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+        GameObject sessionOrigin = GameObject.Find("/AR Session Origin");
+        GameObject.Find("/PlaneScene").SetActive(false);
+        sessionOrigin.GetComponent<ARRaycastManager>().enabled = false;
+        sessionOrigin.GetComponent<ARPlaneManager>().enabled = false;
+        foreach (var plane in sessionOrigin.GetComponent<ARPlaneManager>().trackables) {
+            plane.enabled = false;
+        }
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene", LoadSceneMode.Additive);
     }
 
     public void StartPlaneScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("PlaneDetectionScene", LoadSceneMode.Single);
+        GameObject sessionOrigin = GameObject.Find("/AR Session Origin");
+        sessionOrigin.GetComponent<ARRaycastManager>().enabled = true;
+        sessionOrigin.GetComponent<ARPlaneManager>().enabled = true;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("PlaneDetectionScene", LoadSceneMode.Additive);
     }
 }

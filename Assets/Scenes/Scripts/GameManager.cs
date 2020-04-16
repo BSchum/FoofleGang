@@ -12,13 +12,15 @@ public class GameManager : MonoBehaviour
     private int spawnMobArraySize;
     private float spawnDelta = 0.0f;
     private float spawnPointX = 0.0f;
+    private float spawnPointY = GlobalVariable.Instance.planeY;
     private float spawnPointZ = 0.0f;
     private float maxSpawnRange = 50.0f;
-    private ARPlane plane = GlobalVariable.Instance.plane;
 
     // Start is called before the first frame update
     void Start()
     {
+        var planeManager = GetComponent<ARPlaneManager>();
+        Destroy(planeManager);
         spawnMobArraySize = spawnMob.Length;
     }
 
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
         if (CheckForMob())
         {
             int randomInt = Random.Range(0, spawnMobArraySize);
-            Vector3 spawnPosition = new Vector3(spawnPointX, 0, spawnPointZ);
+            Vector3 spawnPosition = new Vector3(spawnPointX, spawnPointY, spawnPointZ);
             GameObject enemy = spawnMob[randomInt];
             enemy.GetComponent<ZombieController>().SetSpeed(2.0f);
             enemy.GetComponent<ZombieController>().SetTarget(Camera.main.transform);
