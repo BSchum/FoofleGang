@@ -8,7 +8,7 @@ public class PlaneManager : MonoBehaviour
 {
     void Awake()
     {
-        m_RaycastManager = GetComponent<ARRaycastManager>();
+        m_RaycastManager = GameObject.Find("AR Session Origin").GetComponent<ARRaycastManager>();
     }
 
     bool TryGetTouchPosition(out Vector2 touchPosition)
@@ -39,9 +39,9 @@ public class PlaneManager : MonoBehaviour
 
         if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
         {
-            //var hitPose = s_Hits[0].pose;
+            var hitPose = s_Hits[0].pose;
 
-            GlobalVariable.Instance.planeY = s_Hits[0].pose.position.y;
+            GlobalVariable.Instance.planeY = hitPose.position.y;
         }
     }
 

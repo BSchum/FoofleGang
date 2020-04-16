@@ -28,6 +28,11 @@ public class Player : MonoBehaviour
             Shoot();
             deltaT = 0;
         }
+        //  TODO REMOVE WHEN RELOAD UI IS READY
+        if(bulletsInMag == 0)
+        {
+            ReloadWeapon();
+        }
     }
 
     private void Shoot()

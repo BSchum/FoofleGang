@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
 
             Instantiate(enemy, spawnPosition, Quaternion.identity);
             spawnedZombie += 1;
+            Debug.Log(spawnPointY);
         }
     }
 
