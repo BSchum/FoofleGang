@@ -62,7 +62,7 @@ MonoBehaviour:
   _maxHealth: 10
   _speed: 2
   _target: {fileID: 0}
-  _range: 2
+  _range: 3
   _animator: {fileID: 0}
 --- !u!64 &4579510654304278295
 MeshCollider:

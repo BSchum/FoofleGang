@@ -13,7 +13,7 @@ public class SceneManager : MonoBehaviour
         sessionOrigin.GetComponent<ARRaycastManager>().enabled = false;
         sessionOrigin.GetComponent<ARPlaneManager>().enabled = false;
         foreach (var plane in sessionOrigin.GetComponent<ARPlaneManager>().trackables) {
-            plane.enabled = false;
+            plane.GetComponent<ARPlaneMeshVisualizer>().enabled = false;
         }
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene", LoadSceneMode.Additive);
     }

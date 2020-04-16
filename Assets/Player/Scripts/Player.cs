@@ -44,4 +44,14 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    public int GetBulletsInMag()
+    {
+        return this.bulletsInMag;
+    }
+
+    private void ReloadWeapon()
+    {
+        this.bulletsInMag = weapon.magSize;
+    }
 }

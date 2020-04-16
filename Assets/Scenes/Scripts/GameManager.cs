@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using FoofleGang.Enemies;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class GameManager : MonoBehaviour
     private float spawnPointY = GlobalVariable.Instance.planeY;
     private float spawnPointZ = 0.0f;
     private float maxSpawnRange = 50.0f;
+    private int spawnedZombie = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +35,7 @@ public class GameManager : MonoBehaviour
             SpawnMob();
             spawnDelta = 0.0f;
         }
+        UpdateUI();
     }
 
     private void SpawnMob()
@@ -41,7 +45,7 @@ public class GameManager : MonoBehaviour
         spawnPointX = CheckMinimalDistanceSpawn(spawnPointX);
         spawnPointZ = CheckMinimalDistanceSpawn(spawnPointZ);
 
-        if (CheckForMob())
+        if (CheckForMob() && spawnedZombie < 25)
         {
             int randomInt = Random.Range(0, spawnMobArraySize);
             Vector3 spawnPosition = new Vector3(spawnPointX, spawnPointY, spawnPointZ);
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour
 
 
             Instantiate(enemy, spawnPosition, Quaternion.identity);
+            spawnedZombie += 1;
         }
     }
 
@@ -96,5 +101,16 @@ public class GameManager : MonoBehaviour
             default:
                 return GetGameDifficulty(Difficulty.Medium);
         }
+    }
+
+    public void SubstractOneZombie()
+    {
+        this.spawnedZombie -= 1;
+    }
+
+    private void UpdateUI()
+    {
+        string bullets = GameObject.Find("/Game/Player").GetComponent<Player>().GetBulletsInMag().ToString();
+        GameObject.Find("Canvas").GetComponentInChildren<TMP_Text>().text = bullets;
     }
 }
