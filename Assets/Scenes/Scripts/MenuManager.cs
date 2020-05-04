@@ -15,4 +15,31 @@ public class MenuManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void SetDifficulty(GameManager.Difficulty choix)
+    {
+        GlobalVariable.Instance.difficulty = choix;
+    }
+
+    public void OnClickDropdown(int choix)
+    {
+        GameManager.Difficulty difficulty = GameManager.Difficulty.Medium;
+        switch (choix)
+        {
+            case 1 :
+                difficulty = GameManager.Difficulty.Medium;
+                break;
+            case 2 :
+                difficulty = GameManager.Difficulty.Medium;
+                break;
+            case 3:
+                difficulty = GameManager.Difficulty.Medium;
+                break;
+            default:
+                difficulty = GameManager.Difficulty.Medium;
+                break;
+        }
+
+        this.SetDifficulty(difficulty);
+    }
 }
