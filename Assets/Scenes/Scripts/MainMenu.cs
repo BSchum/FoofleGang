@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("PlaneScene", LoadSceneMode.Single);
+        //SceneManager.LoadScene(1);
     }
 }

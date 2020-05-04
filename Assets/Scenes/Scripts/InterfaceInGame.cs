@@ -7,6 +7,7 @@ public class InterfaceInGame : MonoBehaviour
 {
     public void ExitGame()
     {
-        SceneManager.LoadScene(0);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        //SceneManager.LoadScene(0);
     }
 }
