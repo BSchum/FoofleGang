@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     {
         _animator.SetTrigger("Fire");
         bulletsInMag -= 1;
-        Ray ray = new Ray(this.transform.position, transform.forward);
+        Ray ray = new Ray(this.transform.position, transform.TransformDirection(Vector3.forward));
         RaycastHit rHit;
         if (Physics.Raycast(ray, out rHit))
         {
