@@ -51,6 +51,7 @@ namespace FoofleGang.Enemies
         public void SetTarget(Transform target)
         {
             this._target = target;
+            this._target.position = new Vector3(target.position.x, GlobalVariable.Instance.planeY, target.position.z);
         }
         public void SetRange(float range)
         {

@@ -76,6 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
+  fireRate: 0.1
+  magSize: 30
 --- !u!1001 &4193142245839000777
 PrefabInstance:
   m_ObjectHideFlags: 0
