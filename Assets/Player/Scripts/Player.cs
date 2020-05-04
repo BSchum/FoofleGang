@@ -39,7 +39,8 @@ public class Player : MonoBehaviour
     {
         _animator.SetTrigger("Fire");
         bulletsInMag -= 1;
-        Ray ray = new Ray(this.transform.position, transform.TransformDirection(Vector3.forward));
+        var camera = GameObject.Find("/AR Session Origin/AR Camera");
+        Ray ray = new Ray(this.transform.position, camera.transform.TransformDirection(Vector3.forward));
         RaycastHit rHit;
         if (Physics.Raycast(ray, out rHit))
         {
