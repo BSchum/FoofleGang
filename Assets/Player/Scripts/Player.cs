@@ -23,30 +23,30 @@ public class Player : MonoBehaviour
     void Update()
     {
         deltaT += Time.deltaTime;
-        if (Input.GetButton("Fire1") && deltaT > shoot_timer && bulletsInMag > 0)
+    }
+
+    public void Shoot()
+    {
+        if (deltaT > shoot_timer && bulletsInMag > 0)
         {
-            Shoot();
+            _animator.SetTrigger("Fire");
+            bulletsInMag -= 1;
+            var camera = GameObject.Find("/AR Session Origin/AR Camera");
+            Ray ray = new Ray(this.transform.position, camera.transform.TransformDirection(Vector3.forward));
+            RaycastHit rHit;
+            if (Physics.Raycast(ray, out rHit))
+            {
+                if (rHit.collider.tag == "Enemy")
+                {
+                    rHit.collider.GetComponent<IDamageable>().TakeDamage(weapon.damage);
+                }
+            }
             deltaT = 0;
         }
         //  TODO REMOVE WHEN RELOAD UI IS READY
-        if(bulletsInMag == 0)
+        if (bulletsInMag == 0)
         {
             ReloadWeapon();
-        }
-    }
-
-    private void Shoot()
-    {
-        _animator.SetTrigger("Fire");
-        bulletsInMag -= 1;
-        Ray ray = new Ray(this.transform.position, transform.forward);
-        RaycastHit rHit;
-        if (Physics.Raycast(ray, out rHit))
-        {
-            if(rHit.collider.tag == "Enemy")
-            {
-                rHit.collider.GetComponent<IDamageable>().TakeDamage(weapon.damage);
-            }
         }
     }
 
