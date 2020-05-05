@@ -88,6 +88,7 @@ public class Player : MonoBehaviour, IDamageable
                 this.health = 100;
             else
                 this.health += 10;
+            deltaHit = 0;
         }
     }
 }
