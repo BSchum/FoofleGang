@@ -18,10 +18,13 @@ public class GameManager : MonoBehaviour
     private float spawnPointZ = 0.0f;
     private float maxSpawnRange = 50.0f;
     private int spawnedZombie = 0;
+    private Player player;
 
     // Start is called before the first frame update
     void Start()
     {
+        GlobalVariable.Instance.player = GameObject.Find("/Game/Player").GetComponent<Player>();
+        player = GlobalVariable.Instance.player;
         var planeManager = GetComponent<ARPlaneManager>();
         Destroy(planeManager);
         spawnMobArraySize = spawnMob.Length;
@@ -30,12 +33,20 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spawnDelta += Time.deltaTime;
-        if (spawnDelta >= GetGameDifficulty(GameDifficulty)) {
-            SpawnMob();
-            spawnDelta = 0.0f;
+        if (player.isAlive())
+        {
+            spawnDelta += Time.deltaTime;
+            if (spawnDelta >= GetGameDifficulty(GameDifficulty))
+            {
+                SpawnMob();
+                spawnDelta = 0.0f;
+            }
+            UpdateUI();
         }
-        UpdateUI();
+        else
+        {
+            GameOver();
+        }
     }
 
     private void SpawnMob()
@@ -110,7 +121,25 @@ public class GameManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        string bullets = GameObject.Find("/Game/Player").GetComponent<Player>().GetBulletsInMag().ToString();
-        GameObject.Find("Canvas").GetComponentInChildren<TMP_Text>().text = bullets;
+        string bullets = player.GetBulletsInMag().ToString();
+        GameObject.Find("/Game/Canvas/BulletsCanvas/Bullets").GetComponent<TMP_Text>().text = bullets;
+
+
+        string health = ((int)player.getHealth()).ToString();
+        GameObject.Find("/Game/Canvas/HealthCanvas/Health").GetComponent<TMP_Text>().text = health;
+    }
+
+    public void GameOver()
+    {
+        foreach (var gameobject in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            gameobject.SetActive(false);
+        }
+        GameObject.Find("/Game/Canvas/Image").SetActive(false);
+        GameObject.Find("/Game/Canvas/HealthCanvas").SetActive(false);
+        GameObject.Find("/Game/Canvas/BulletsCanvas").SetActive(false);
+        GameObject.Find("/Game/Canvas/InGamePanel").SetActive(false);
+        GameObject.Find("/Game/Canvas/GameOver").SetActive(true);
+        player.enabled = false;
     }
 }

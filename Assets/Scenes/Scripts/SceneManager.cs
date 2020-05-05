@@ -25,4 +25,9 @@ public class SceneManager : MonoBehaviour
         sessionOrigin.GetComponent<ARPlaneManager>().enabled = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene("PlaneDetectionScene", LoadSceneMode.Additive);
     }
+
+    public void StartMainMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
 }

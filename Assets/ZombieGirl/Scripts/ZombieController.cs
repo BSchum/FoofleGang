@@ -14,6 +14,9 @@ namespace FoofleGang.Enemies
         [Tooltip("Need to be set when zombie is spawned")]
         [SerializeField] private Transform _target;
         [SerializeField] private float _range;
+        private int zombiePower = 15;
+        private float hitSpeed = 1.6f;
+        private float spawnDelta = 0.0f;
 
         [Header("Animation")]
         [SerializeField] private Animator _animator;
@@ -29,7 +32,8 @@ namespace FoofleGang.Enemies
 
         public void Update()
         {
-            if(Vector3.Distance(this.gameObject.transform.position, _target.gameObject.transform.position) > _range)
+            spawnDelta += Time.deltaTime;
+            if (Vector3.Distance(this.gameObject.transform.position, _target.gameObject.transform.position) > _range)
             {
                 _motor.Move(Vector3.forward, _speed);
                 _isWalking = true;
@@ -37,6 +41,11 @@ namespace FoofleGang.Enemies
             else
             {
                 _isWalking = false;
+                if(spawnDelta >= hitSpeed)
+                {
+                    HitPlayer(zombiePower);
+                    spawnDelta = 0.0f;
+                }
             }
             _animator.SetBool(ZombieAnimationConstants.IsWalkingParamName, _isWalking);
             _motor.Look(_target);
@@ -65,6 +74,12 @@ namespace FoofleGang.Enemies
 
             if (_health <= 0)
                 Destroy(this.gameObject);
+        }
+
+        private void HitPlayer(int damage)
+        {
+            GlobalVariable.Instance.player.TakeDamage(damage);
+            Debug.Log($"Player a pris {damage}, il lui reste {GlobalVariable.Instance.player.getHealth()} PV");
         }
     }
 }

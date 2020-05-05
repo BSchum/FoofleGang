@@ -8,6 +8,8 @@ public class GlobalVariable
     public float planeY;
     public GameManager.Difficulty difficulty { get; set; } = GameManager.Difficulty.Medium;
 
+    public Player player { get; set; }
+
 
     #region Init / Gestion du singleton
 

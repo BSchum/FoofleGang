@@ -4,13 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] Animator _animator;
     [SerializeField] Weapon weapon;
     private float shoot_timer = 0.3f;
     private float deltaT = 0;
     private int bulletsInMag = 10;
+    private int health = 100;
+    private float deltaHit = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         deltaT += Time.deltaTime;
+        deltaHit += Time.deltaTime;
+        RegenerateHealth();
     }
 
     public void Shoot()
@@ -50,6 +54,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public bool isAlive()
+    {
+        return health > 0;
+    }
+
     public int GetBulletsInMag()
     {
         return this.bulletsInMag;
@@ -58,5 +67,27 @@ public class Player : MonoBehaviour
     private void ReloadWeapon()
     {
         this.bulletsInMag = weapon.magSize;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        deltaHit = 0;
+        this.health -= (int)damage;
+    }
+
+    public float getHealth()
+    {
+        return this.health;
+    }
+
+    private void RegenerateHealth()
+    {
+        if(deltaHit > 4.0f && this.health < 100)
+        {
+            if (this.health + 10 > 100)
+                this.health = 100;
+            else
+                this.health += 10;
+        }
     }
 }

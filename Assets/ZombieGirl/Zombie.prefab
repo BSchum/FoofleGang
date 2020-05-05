@@ -64,7 +64,7 @@ MonoBehaviour:
   _maxHealth: 10
   _speed: 2
   _target: {fileID: 0}
-  _range: 3
+  _range: 7
   _animator: {fileID: 0}
 --- !u!1 &3666259090146578038
 GameObject:
