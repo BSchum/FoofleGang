@@ -73,7 +73,10 @@ namespace FoofleGang.Enemies
             Debug.Log($"{gameObject.name} a pris {damage}, il lui reste {_health} PV");
 
             if (_health <= 0)
+            {
                 Destroy(this.gameObject);
+                GlobalVariable.Instance.gameScore += GameManager.GetGameDifficulty(GlobalVariable.Instance.difficulty) * 10;
+            }
         }
 
         private void HitPlayer(int damage)

@@ -6,9 +6,11 @@ using UnityEngine.XR.ARFoundation;
 public class GlobalVariable
 {
     public float planeY;
-    public GameManager.Difficulty difficulty { get; set; } = GameManager.Difficulty.Medium;
+    public GameManager.Difficulty difficulty { get;  set; }
 
     public Player player { get; set; }
+
+    public float gameScore = 0;
 
 
     #region Init / Gestion du singleton

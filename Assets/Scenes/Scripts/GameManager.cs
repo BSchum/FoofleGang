@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private float maxSpawnRange = 50.0f;
     private int spawnedZombie = 0;
     private Player player;
+    private float gameScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -99,7 +100,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private float GetGameDifficulty(Difficulty difficulty)
+    public static float GetGameDifficulty(Difficulty difficulty)
     {
         switch (difficulty)
         {
@@ -123,6 +124,7 @@ public class GameManager : MonoBehaviour
     {
         string bullets = player.GetBulletsInMag().ToString();
         GameObject.Find("/Game/Canvas/BulletsCanvas/Bullets").GetComponent<TMP_Text>().text = bullets;
+        GameObject.Find("/Game/Canvas/BulletsCanvas/MagSize").GetComponent<TMP_Text>().text = "/"+player.GetActiveWeapon().magSize.ToString();
 
 
         string health = ((int)player.getHealth()).ToString();
@@ -131,15 +133,17 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        foreach (var gameobject in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            gameobject.SetActive(false);
-        }
         GameObject.Find("/Game/Canvas/Image").SetActive(false);
         GameObject.Find("/Game/Canvas/HealthCanvas").SetActive(false);
         GameObject.Find("/Game/Canvas/BulletsCanvas").SetActive(false);
         GameObject.Find("/Game/Canvas/InGamePanel").SetActive(false);
         GameObject.Find("/Game/Canvas/GameOver").SetActive(true);
+        GameObject.Find("/Game/Canvas/GameOver/Score").SetActive(true);
+        GameObject.Find("/Game/Canvas/GameOver/Score").GetComponent<TMP_Text>().text = $"Score : {GlobalVariable.Instance.gameScore.ToString()}";
+        foreach (var gameobject in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            gameobject.SetActive(false);
+        }
         player.enabled = false;
     }
 }

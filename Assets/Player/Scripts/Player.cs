@@ -91,4 +91,9 @@ public class Player : MonoBehaviour, IDamageable
             deltaHit = 0;
         }
     }
+
+    public Weapon GetActiveWeapon()
+    {
+        return weapon;
+    }
 }

@@ -26,6 +26,12 @@ public class SceneManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("PlaneDetectionScene", LoadSceneMode.Additive);
     }
 
+    public void RestartGameScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetSceneByName("GameScene"));
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene", LoadSceneMode.Additive);
+    }
+
     public void StartMainMenu()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);

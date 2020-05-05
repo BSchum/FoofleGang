@@ -26,14 +26,14 @@ public class MenuManager : MonoBehaviour
         GameManager.Difficulty difficulty = GameManager.Difficulty.Medium;
         switch (choix)
         {
+            case 0 :
+                difficulty = GameManager.Difficulty.Medium;
+                break;
             case 1 :
-                difficulty = GameManager.Difficulty.Medium;
+                difficulty = GameManager.Difficulty.Hard;
                 break;
-            case 2 :
-                difficulty = GameManager.Difficulty.Medium;
-                break;
-            case 3:
-                difficulty = GameManager.Difficulty.Medium;
+            case 2:
+                difficulty = GameManager.Difficulty.Godlike;
                 break;
             default:
                 difficulty = GameManager.Difficulty.Medium;
