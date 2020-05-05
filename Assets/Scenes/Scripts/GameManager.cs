@@ -8,8 +8,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    private enum Difficulty { Medium, Hard, Godlike};
-    [SerializeField] private Difficulty GameDifficulty = Difficulty.Medium;
+    public enum Difficulty { Medium, Hard, Godlike };
+    [SerializeField] private Difficulty GameDifficulty = GlobalVariable.Instance.difficulty;
     public GameObject[] spawnMob;
     private int spawnMobArraySize;
     private float spawnDelta = 0.0f;
